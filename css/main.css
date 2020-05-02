@@ -171,11 +171,11 @@ body {
 }
 
 .player-1 {
-  background: blue;
+
 }
 
 .player-2 {
-  background: red;
+
 }
 
 .player-name {
@@ -183,7 +183,31 @@ body {
   position: absolute;
   width: 200px;
   border: 5px solid black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
+.name {
+  width: 50%;
+}
+
+.dot {
+  width: 15px;
+  height: 15px;
+  background: red;
+  border-radius: 50%;
+  position: absolute;
+  right: 15px;
+  opacity: 0;
+}
+
+.active {
+  opacity: 1;
+}
+
+
+
 
 /* GAME BOARD */
 
@@ -195,6 +219,7 @@ body {
   row-gap: 10px;
   position: absolute;
   bottom: 40px;
+  background: black;
 }
 
 .box {
@@ -203,7 +228,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: pink;
+  background: white;
 }
 
 .box h1 {
