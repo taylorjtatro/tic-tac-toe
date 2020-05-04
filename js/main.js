@@ -52,3 +52,7 @@ document.querySelector('.grid-container').addEventListener('click', el => {
 
 
 //Figure out how to remove adding to the array if it already contains that value
+
+
+
+//Added this comment to see if git pull works well
