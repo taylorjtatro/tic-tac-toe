@@ -56,3 +56,6 @@ document.querySelector('.grid-container').addEventListener('click', el => {
 
 
 //Added this comment to see if git pull works well
+
+
+//Now had to add second comment to check if it works yay this is fun hahaha
