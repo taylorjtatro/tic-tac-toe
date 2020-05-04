@@ -60,4 +60,8 @@ document.querySelector('.grid-container').addEventListener('click', el => {
 
 //Now had to add second comment to check if it works yay this is fun hahaha
 
+<<<<<<< HEAD
 //now we'll see if we conflictwhen i push this
+=======
+//NOw I am going to add some code form the work computer and see if i can push it up
+>>>>>>> 99c86a21ae1a81c587f3637b2640e73910193930
