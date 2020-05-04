@@ -59,3 +59,5 @@ document.querySelector('.grid-container').addEventListener('click', el => {
 
 
 //Now had to add second comment to check if it works yay this is fun hahaha
+
+//NOw I am going to add some code form the work computer and see if i can push it up
