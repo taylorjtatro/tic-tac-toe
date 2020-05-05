@@ -65,6 +65,10 @@ if (!space.innerHTML.includes('X') && !space.innerHTML.includes('O')) {
    
    
     //Here we need to check if they won or if it is a draw. So write a function for that.
+            //should be like a 3 part if else statement
+                //1. if three in a row declare winner
+                // else 2. if 9 total moves have been made declare draw
+                // else use this if statement below to switch to the next player and let them go.
    
     if (state.player === player1) {
         state.player = player2;
