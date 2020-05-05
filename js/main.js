@@ -1,6 +1,21 @@
 
+
+
+
+const player1 = {
+    playerName: 'Player-1',
+    playerPiece: 'X',
+    playerMoves: []
+}
+
+const player2 = {
+    playerName: 'Player-2',
+    playerPiece: 'O',
+    playerMoves: []
+}
+
 const state = {
-    player: 1,
+    player: player1,
     usedBox: {
         player1: [],
         player2: []
@@ -11,20 +26,16 @@ const state = {
     }
 };
 
+//Lets see if we can just add our players to the state so we have one large object.
 
-let test = document.querySelectorAll('.box');
-let tester = Array.from(test);
-console.log(tester)
-tester.forEach(el => {
-    el.innerHTML = '';
-})
 
 document.querySelector('.grid-container').addEventListener('click', el => {
-    console.log(el.target);
+   // console.log(el.target);
     space = el.target;
-    console.log(space.innerHTML)
+    //console.log(space.innerHTML)
+   /*
     if (state.player === 1) {
-        if (space.innerHTML.includes('')) {
+        if (!space.innerHTML.includes('O')) {
             space.innerHTML = 'X';
             state.usedBox.player1.push(space.id)
             console.log(state.usedBox)
@@ -42,26 +53,29 @@ document.querySelector('.grid-container').addEventListener('click', el => {
         } 
 
     }
+*/
 
-
+   //
+if (!space.innerHTML.includes('X') && !space.innerHTML.includes('O')) {
+    let currentPlayer = state.player;
+    //console.log(currentPlayer)
+    space.innerHTML = currentPlayer.playerPiece;
+    currentPlayer.playerMoves.push(space.id);
+    console.log(currentPlayer);
    
+   
+    //Here we need to check if they won or if it is a draw. So write a function for that.
+   
+    if (state.player === player1) {
+        state.player = player2;
+    } else {
+        state.player = player1;
+    }
+
+}
+
 
 });
 
 
 
-
-//Figure out how to remove adding to the array if it already contains that value
-
-
-
-//Added this comment to see if git pull works well
-
-
-//Now had to add second comment to check if it works yay this is fun hahaha
-
-<<<<<<< HEAD
-//now we'll see if we conflictwhen i push this
-=======
-//NOw I am going to add some code form the work computer and see if i can push it up
->>>>>>> 99c86a21ae1a81c587f3637b2640e73910193930
