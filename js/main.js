@@ -17,7 +17,15 @@ const player2 = {
 const state = {
     player: player1,
     usedBox: {
-        player1: [],
+        player1: {
+            topWin: [],
+            middleWin: [],
+            bottomWin: [],
+            leftWin: [],
+            centerWin: [],
+            rightWin: []
+
+        },
         player2: []
     },
     scores: {
@@ -39,18 +47,31 @@ const state = {
 };
 
 
-
-
-
-const obPush = (yup) => {
-    state.positions[yup] = state.player.playerPiece;
+const winningArr = {
+    topWin: ['b1', 'b2', 'b3'],
+    middleWin: ['b4', 'b5', 'b6'],
+    bottomWin: ['b7', 'b8', 'b9'],
+    leftWin: ['b1', 'b4', 'b7'],
+    centerWin: ['b2', 'b5', 'b8'],
+    rightWin: ['b3', 'b6', 'b9'],
+    diagLWin: ['b1', 'b5', 'b9'],
+    diagRWin: ['b3', 'b5', 'b7']
 }
+
+const recordMove = (space) => {
+    state.positions[space] = state.player.playerPiece;
+}
+
+
 
 const checkWin = () => {
     let player = state.player.playerPiece;
     let pos = state.positions;
-    if (state.positions.b1 === player && state.positions.b2 === player && state.positions.b3 === player) {
+    if (pos.b1 === player && pos.b2 === player && pos.b3 === player) {
         console.log(`${state.player.playerName} wins top across!`)
+        winningArr.topWin.forEach(el => {
+            document.querySelector(`#${el}`).classList.add('red')//This works! but need to simplify it maybe with another function so dont repeat code
+        })
     } else if (pos.b4 === player && pos.b5 === player && pos.b6 === player) {
         console.log(`${state.player.playerName} wins mid accross`); 
     } else if (pos.b7 === player && pos.b8 === player && pos.b9 === player) {
@@ -78,34 +99,27 @@ const checkWin = () => {
 document.querySelector('.grid-container').addEventListener('click', el => {
    // console.log(el.target);
     let space = el.target;
+    console.log(space)
     
 
    //
-if (!space.innerHTML.includes('X') && !space.innerHTML.includes('O')) {
-    let currentPlayer = state.player;
-    //console.log(currentPlayer)
-    space.innerHTML = currentPlayer.playerPiece;
-    currentPlayer.playerMoves.push(space.id);
-    console.log(currentPlayer);
-   obPush(space.id);
-   console.log(state.positions);
-   //movePlace(currentPlayer.playerPiece);
-    //Here we need to check if they won or if it is a draw. So write a function for that.
-            //should be like a 3 part if else statement
-                //1. if three in a row declare winner
-                // else 2. if 9 total moves have been made declare draw
-                // else use this if statement below to switch to the next player and let them go.
-   //testWin(allWins);
-    checkWin();
+    if (!space.innerHTML.includes('X') && !space.innerHTML.includes('O')) {
+        let currentPlayer = state.player; //Set the current player
+
+        space.innerHTML = currentPlayer.playerPiece;//Places the letter of the current Player in the box
+        
+        recordMove(space.id);// Add move to state.positions
+        
+        checkWin();//Checks to see if have three in a row and console.logs win
 
 
-    if (state.player === player1) {
-        state.player = player2;
-    } else {
-        state.player = player1;
+        if (state.player === player1) {//this section switches player. maybe make its own function outside.
+            state.player = player2;
+        } else {
+            state.player = player1;
+        }
+
     }
-
-}
 
 
 });
@@ -116,11 +130,24 @@ if (!space.innerHTML.includes('X') && !space.innerHTML.includes('O')) {
 
 
 
+//Maybe create new class on initiazlixe
+
+class Tester {
+    constructor(test, test2) {
+        this.test = test,
+        this.test2 = test2;
+    }
+
+    example() {
+        console.log(this.test + this.test2);
+    }
+}
 
 
 
 
-
+const yesir = new Tester(1,2);
+yesir.example();
 
 //Old version but may revert back
 
