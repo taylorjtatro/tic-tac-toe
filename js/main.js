@@ -69,9 +69,11 @@ const checkWin = () => {
     let pos = state.positions;
     if (pos.b1 === player && pos.b2 === player && pos.b3 === player) {
         console.log(`${state.player.playerName} wins top across!`)
-        winningArr.topWin.forEach(el => {
+      /*  winningArr.topWin.forEach(el => {
             document.querySelector(`#${el}`).classList.add('red')//This works! but need to simplify it maybe with another function so dont repeat code
-        })
+        })*/
+        console.log('topWin');
+        return 'topWin';
     } else if (pos.b4 === player && pos.b5 === player && pos.b6 === player) {
         console.log(`${state.player.playerName} wins mid accross`); 
     } else if (pos.b7 === player && pos.b8 === player && pos.b9 === player) {
@@ -86,7 +88,9 @@ const checkWin = () => {
         console.log(`${state.player.playerName} wins left diaganol`); 
     } else if (pos.b3 === player && pos.b5 === player && pos.b7 === player) {
         console.log(`${state.player.playerName} wins right diaganol`); 
-    }    
+    } else {
+        return 0;
+    }   
 
 
 //we need to return the player who won and add their score to the scoreboard
@@ -94,7 +98,14 @@ const checkWin = () => {
 
 } 
 
+const displayWin = (test) => {
+   if (!test === 0){
+    winningArr[test].forEach(el => {
+        document.querySelector(`#${el}`).classList.add('red');
+    });
+    }
 
+}
 
 document.querySelector('.grid-container').addEventListener('click', el => {
    // console.log(el.target);
@@ -110,8 +121,13 @@ document.querySelector('.grid-container').addEventListener('click', el => {
         
         recordMove(space.id);// Add move to state.positions
         
-        checkWin();//Checks to see if have three in a row and console.logs win
+        let hmm = checkWin();//Checks to see if have three in a row and console.logs win
 
+        console.log(hmm)
+
+            displayWin(hmm);//NOt working !!!!
+            console.log('testdisplay')
+        
 
         if (state.player === player1) {//this section switches player. maybe make its own function outside.
             state.player = player2;
