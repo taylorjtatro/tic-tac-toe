@@ -142,8 +142,9 @@ document.querySelector('.grid-container').addEventListener('click', el => {
         // Add move to state.positions
         recordMove(space.id);
         
+        //Tracks how many moves the player has made
         currentPlayer.playerCount += 1;
-        console.log(currentPlayer.playerCount)
+        
         //Checks to see if have three in a row and console.logs win
         let win = checkWin();
 
