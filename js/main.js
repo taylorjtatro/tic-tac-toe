@@ -1,17 +1,27 @@
+//TO DO List
 
+//Need an init function to set scores to 0 and start everything
 
+//this may be the same as new game
+    //we need the new game to start on whoever is the last player
 
+//We need to address a draw
+    //probably by move count
+        //maybe a move count += 1;
+        //if move count = 9 and no win
+
+/**********************************PLAYERS, STATE, & Winning Array Combinations ******************************* */
 
 const player1 = {
     playerName: 'Player-1',
     playerPiece: 'X',
-    playerMoves: []
+    playerCount: 0
 }
 
 const player2 = {
     playerName: 'Player-2',
     playerPiece: 'O',
-    playerMoves: []
+    playerCount: 0
 }
 
 const state = {
@@ -58,78 +68,90 @@ const winningArr = {
     diagRWin: ['b3', 'b5', 'b7']
 }
 
+/**************************************************************************************************** */
+
+//Record Move into State
 const recordMove = (space) => {
     state.positions[space] = state.player.playerPiece;
 }
 
 
-
+//Check to see if a player has won and if so return the winning combination
 const checkWin = () => {
     let player = state.player.playerPiece;
     let pos = state.positions;
     if (pos.b1 === player && pos.b2 === player && pos.b3 === player) {
-        console.log(`${state.player.playerName} wins top across!`)
-      /*  winningArr.topWin.forEach(el => {
-            document.querySelector(`#${el}`).classList.add('red')//This works! but need to simplify it maybe with another function so dont repeat code
-        })*/
-        console.log('topWin');
         return 'topWin';
     } else if (pos.b4 === player && pos.b5 === player && pos.b6 === player) {
         console.log(`${state.player.playerName} wins mid accross`); 
+        return 'middleWin';
     } else if (pos.b7 === player && pos.b8 === player && pos.b9 === player) {
         console.log(`${state.player.playerName} wins bottom across`); 
+        return 'bottomWin';
     } else if (pos.b1 === player && pos.b4 === player && pos.b7 === player) {
         console.log(`${state.player.playerName} wins left down`); 
+        return 'leftWin';
     } else if (pos.b2 === player && pos.b5 === player && pos.b8 === player) {
-        console.log(`${state.player.playerName} wins center down`);     
+        console.log(`${state.player.playerName} wins center down`);   
+        return 'centerWin';  
     } else if (pos.b3 === player && pos.b6 === player && pos.b9 === player) {
-        console.log(`${state.player.playerName} wins right down`); 
+        console.log(`${state.player.playerName} wins right down`);
+        return 'rightWin';
     } else if (pos.b1 === player && pos.b5 === player && pos.b9 === player) {
         console.log(`${state.player.playerName} wins left diaganol`); 
+        return 'diagLWin';
     } else if (pos.b3 === player && pos.b5 === player && pos.b7 === player) {
         console.log(`${state.player.playerName} wins right diaganol`); 
+        return 'diagRWin';
+    } else if (state.player.playerCount === 5) {
+        console.log('draw');
+        return 'draw';
     } else {
         return 0;
     }   
-
-
-//we need to return the player who won and add their score to the scoreboard
-
-
 } 
 
-const displayWin = (test) => {
-   if (!test === 0){
-    winningArr[test].forEach(el => {
-        document.querySelector(`#${el}`).classList.add('red');
-    });
-    }
 
+// Change the color of the winning characters to Red
+const displayWin = test => {
+   if (test === 'draw') {
+       console.log('draw')
+   } else if (test !== 0){
+        winningArr[test].forEach(el => {
+        document.querySelector(`#${el}`).classList.add('red');
+        console.log('testerrrr')
+    })
+    };
+    
 }
 
+
+//MAIN CONTROLLER
+
 document.querySelector('.grid-container').addEventListener('click', el => {
-   // console.log(el.target);
+   
     let space = el.target;
-    console.log(space)
-    
-
-   //
+   
     if (!space.innerHTML.includes('X') && !space.innerHTML.includes('O')) {
-        let currentPlayer = state.player; //Set the current player
+        //Set the current player
+        let currentPlayer = state.player;
 
-        space.innerHTML = currentPlayer.playerPiece;//Places the letter of the current Player in the box
+        //Display current player letter
+        space.innerHTML = currentPlayer.playerPiece;
+
+        // Add move to state.positions
+        recordMove(space.id);
         
-        recordMove(space.id);// Add move to state.positions
+        currentPlayer.playerCount += 1;
+        console.log(currentPlayer.playerCount)
+        //Checks to see if have three in a row and console.logs win
+        let win = checkWin();
+
+        //If win returns true we display the winning moves in Red
+        displayWin(win);
         
-        let hmm = checkWin();//Checks to see if have three in a row and console.logs win
-
-        console.log(hmm)
-
-            displayWin(hmm);//NOt working !!!!
-            console.log('testdisplay')
-        
-
-        if (state.player === player1) {//this section switches player. maybe make its own function outside.
+        //this section switches player. maybe make its own function outside.
+        if (state.player === player1) {
             state.player = player2;
         } else {
             state.player = player1;
@@ -145,6 +167,29 @@ document.querySelector('.grid-container').addEventListener('click', el => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 
 //Maybe create new class on initiazlixe
 
