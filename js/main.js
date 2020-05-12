@@ -25,7 +25,18 @@ const player2 = {
 }
 
 const state = {
-    player: player1,
+    player: [
+        {name: 'player1',
+         piece: 'X',
+         count: 0,
+         score: 0       
+        },
+        {name: 'player2',
+        piece: '0',
+        count: 0,
+        score: 0
+        }
+    ],
     scores: {
         player1: 0,
         player2: 0
@@ -110,17 +121,17 @@ const displayWin = test => {
     });
     //this section switches player. maybe make its own function outside.
         alert(state.player.playerName)
-        state.scores.player1 += 1;
+        state.scores[player] += 1;
     };
     
 }
 
 //Change Player
 const changePlayer = () => {
-    if (state.player === player1) {
-        state.player = player2;
+    if (current === 0) {
+        current = 1;
     } else {
-        state.player = player1;
+        current = 0;
     };
 }
 
@@ -130,19 +141,23 @@ const changePlayer = () => {
 document.querySelector('.grid-container').addEventListener('click', el => {
    
     let space = el.target;
-   
+    
     if (!space.innerHTML.includes('X') && !space.innerHTML.includes('O')) {
+        
+        let current = 0;
+        console.log(current)//this isnt working to change current player?
+
         //Set the current player
-        let currentPlayer = state.player;
+        let currentPlayer = state.player[current];
 
         //Display current player letter
-        space.innerHTML = currentPlayer.playerPiece;
+        space.innerHTML = currentPlayer.piece;
 
         // Add move to state.positions
         recordMove(space.id);
         
         //Tracks how many moves the player has made
-        currentPlayer.playerCount += 1;
+        currentPlayer.count += 1;
         
         //Checks to see if have three in a row and console.logs win
         let win = checkWin();
@@ -154,8 +169,13 @@ document.querySelector('.grid-container').addEventListener('click', el => {
         //NOW WE NEED TO SET UP SO THAT IT STOPS THE GAME IF A PLAYER WINS
 
         //this section switches player. maybe make its own function outside.
-        changePlayer();
-        
+        //changePlayer();
+        if (current === 0) {
+            current = 1;
+        } else {
+            current = 0; //cant get this to change???
+        }
+        console.log(current)
         
 
     }
