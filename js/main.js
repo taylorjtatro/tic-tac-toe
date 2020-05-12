@@ -26,18 +26,6 @@ const player2 = {
 
 const state = {
     player: player1,
-    usedBox: {
-        player1: {
-            topWin: [],
-            middleWin: [],
-            bottomWin: [],
-            leftWin: [],
-            centerWin: [],
-            rightWin: []
-
-        },
-        player2: []
-    },
     scores: {
         player1: 0,
         player2: 0
@@ -119,10 +107,21 @@ const displayWin = test => {
    } else if (test !== 0){
         winningArr[test].forEach(el => {
         document.querySelector(`#${el}`).classList.add('red');
-        console.log('testerrrr')
-    })
+    });
+    //this section switches player. maybe make its own function outside.
+        alert(state.player.playerName)
+        state.scores.player1 += 1;
     };
     
+}
+
+//Change Player
+const changePlayer = () => {
+    if (state.player === player1) {
+        state.player = player2;
+    } else {
+        state.player = player1;
+    };
 }
 
 
@@ -151,12 +150,13 @@ document.querySelector('.grid-container').addEventListener('click', el => {
         //If win returns true we display the winning moves in Red
         displayWin(win);
         
+       
+        //NOW WE NEED TO SET UP SO THAT IT STOPS THE GAME IF A PLAYER WINS
+
         //this section switches player. maybe make its own function outside.
-        if (state.player === player1) {
-            state.player = player2;
-        } else {
-            state.player = player1;
-        }
+        changePlayer();
+        
+        
 
     }
 
@@ -168,12 +168,21 @@ document.querySelector('.grid-container').addEventListener('click', el => {
 
 
 
+const arrLoop = ['X', 'X', 'X'];
+let t = 0;
+arrLoop.forEach(el => {
+    
+    if(el === 'X') {
+        t += 1;
+    }
+    console.log(t)
+})
 
 
 
 
-
-
+//instead of an object we could do an array with the positions so start at b0 and then push in an x to those positions
+    //s0 if array in postion 0,1,2 = this than top win
 
 
 
