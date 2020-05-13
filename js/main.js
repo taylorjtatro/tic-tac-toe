@@ -12,17 +12,8 @@
 
 /**********************************PLAYERS, STATE, & Winning Array Combinations ******************************* */
 
-const player1 = {
-    playerName: 'Player-1',
-    playerPiece: 'X',
-    playerCount: 0
-}
 
-const player2 = {
-    playerName: 'Player-2',
-    playerPiece: 'O',
-    playerCount: 0
-}
+let current = 0;
 
 const state = {
     player: [
@@ -32,7 +23,7 @@ const state = {
          score: 0       
         },
         {name: 'player2',
-        piece: '0',
+        piece: 'O',
         count: 0,
         score: 0
         }
@@ -71,13 +62,15 @@ const winningArr = {
 
 //Record Move into State
 const recordMove = (space) => {
-    state.positions[space] = state.player.playerPiece;
+    state.positions[space] = state.player[current].piece;
 }
 
 
 //Check to see if a player has won and if so return the winning combination
 const checkWin = () => {
-    let player = state.player.playerPiece;
+    //let player = state.player.playerPiece;
+    let player = state.player[current].piece;
+    console.log(player)
     let pos = state.positions;
     if (pos.b1 === player && pos.b2 === player && pos.b3 === player) {
         return 'topWin';
@@ -102,7 +95,7 @@ const checkWin = () => {
     } else if (pos.b3 === player && pos.b5 === player && pos.b7 === player) {
         console.log(`${state.player.playerName} wins right diaganol`); 
         return 'diagRWin';
-    } else if (state.player.playerCount === 5) {
+    } else if (state.player[current].count === 5) {
         console.log('draw');
         return 'draw';
     } else {
@@ -120,8 +113,8 @@ const displayWin = test => {
         document.querySelector(`#${el}`).classList.add('red');
     });
     //this section switches player. maybe make its own function outside.
-        alert(state.player.playerName)
-        state.scores[player] += 1;
+        alert(state.player[current].name)
+        state.player[current].count += 1;
     };
     
 }
@@ -130,10 +123,42 @@ const displayWin = test => {
 const changePlayer = () => {
     if (current === 0) {
         current = 1;
+        //Change active class to be on active player (red border around player name)
+        ['.player-0', '.player-1'].forEach(el => {document.querySelector(el).classList.toggle('active')})
     } else {
         current = 0;
+        ['.player-0', '.player-1'].forEach(el => {document.querySelector(el).classList.toggle('active')})
     };
 }
+
+
+//Update Score
+const updateScore = () => {
+    state.player[current].score += 1;
+    document.querySelector(`.player-${current}-score`).innerHTML = state.player[current].score;
+}
+
+
+
+//Setup new game after win
+const newGame = () => {
+    //reset count
+    state.player.forEach(el => el.count = 0);
+
+    let positions = [];
+    //Use a for in loop to loop over our positions obj and set them all back to 0
+    for (const property in state.positions) {
+        state.positions[property] = 0;
+        positions.push(property);
+        
+    }
+    console.log(positions)
+    positions.forEach(el => {
+        document.querySelector(`#${el}`).innerHTML = '';
+        document.querySelector(`#${el}`).classList.remove('red');
+    });
+}
+
 
 
 //MAIN CONTROLLER
@@ -144,7 +169,7 @@ document.querySelector('.grid-container').addEventListener('click', el => {
     
     if (!space.innerHTML.includes('X') && !space.innerHTML.includes('O')) {
         
-        let current = 0;
+        
         console.log(current)//this isnt working to change current player?
 
         //Set the current player
@@ -163,20 +188,30 @@ document.querySelector('.grid-container').addEventListener('click', el => {
         let win = checkWin();
 
         //If win returns true we display the winning moves in Red
-        displayWin(win);
+        if (win) {//so here if we win we can do all our stuff in here
+            displayWin(win);
+            //Now we need to update the score
+            updateScore();
+            //then we need to reset player counts and the player moves in our state
+
+            //Reset for New Game
+            newGame();
+
+
+
+        } else { //else if we dont win we can change player and keep going. but we may want to put change player outside of htis because we will want the next player to make the first move next time.
+
+        }
+        
         
        
         //NOW WE NEED TO SET UP SO THAT IT STOPS THE GAME IF A PLAYER WINS
 
         //this section switches player. maybe make its own function outside.
-        //changePlayer();
-        if (current === 0) {
-            current = 1;
-        } else {
-            current = 0; //cant get this to change???
-        }
-        console.log(current)
+       
+        changePlayer();
         
+        console.log(current)  
 
     }
 
@@ -187,6 +222,11 @@ document.querySelector('.grid-container').addEventListener('click', el => {
 
 
 
+
+
+
+
+/*
 
 const arrLoop = ['X', 'X', 'X'];
 let t = 0;
@@ -200,7 +240,7 @@ arrLoop.forEach(el => {
 
 
 
-
+*/
 //instead of an object we could do an array with the positions so start at b0 and then push in an x to those positions
     //s0 if array in postion 0,1,2 = this than top win
 

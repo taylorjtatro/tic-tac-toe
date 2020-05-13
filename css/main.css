@@ -163,11 +163,11 @@ body {
   align-items: center;
 }
 
-.player-1-score {
+.player-0-score {
   border-right: 1.25px solid black;
 }
 
-.player-2-score {
+.player-1-score {
   border-left: 1.25px solid black;
 }
   /* END SCOREBOARD */
@@ -175,7 +175,7 @@ body {
 
 /* PLAYER NAME & ACTIVE PLAYER */
 
-.player-1, .player-2 {
+.player-0, .player-1 {
   width: 50%;
   display: flex;
   justify-content: center;
@@ -183,11 +183,11 @@ body {
   border: 5px solid black;
 }
 
-.player-1 {
+.player-0 {
   order: 1;
 }
 
-.player-2 {
+.player-1 {
   order: 3
 }
 
