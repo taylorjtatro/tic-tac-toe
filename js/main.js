@@ -17,12 +17,12 @@ let current = 0;
 
 const state = {
     player: [
-        {name: 'player1',
+        {name: 'Player 1',
          piece: 'X',
          count: 0,
          score: 0       
         },
-        {name: 'player2',
+        {name: 'Player 2',
         piece: 'O',
         count: 0,
         score: 0
@@ -108,12 +108,14 @@ const checkWin = () => {
 const displayWin = test => {
    if (test === 'draw') {
        console.log('draw')
+       document.querySelector('.announce').classList.add('display');
    } else if (test !== 0){
         winningArr[test].forEach(el => {
         document.querySelector(`#${el}`).classList.add('red');
     });
     //this section switches player. maybe make its own function outside.
-        alert(state.player[current].name)
+       // alert(state.player[current].name)
+       document.querySelector('.announce').classList.add('display');
         state.player[current].count += 1;
     };
     
@@ -136,6 +138,7 @@ const changePlayer = () => {
 const updateScore = () => {
     state.player[current].score += 1;
     document.querySelector(`.player-${current}-score`).innerHTML = state.player[current].score;
+    document.querySelector(`.player-${current}-score`).classList.add('red');
 }
 
 
@@ -157,6 +160,12 @@ const newGame = () => {
         document.querySelector(`#${el}`).innerHTML = '';
         document.querySelector(`#${el}`).classList.remove('red');
     });
+
+    document.querySelector('.announce').classList.remove('display');
+
+    document.querySelector(`.player-${current}-score`).classList.remove('red');
+
+    changePlayer();
 }
 
 
@@ -188,19 +197,27 @@ document.querySelector('.grid-container').addEventListener('click', el => {
         let win = checkWin();
 
         //If win returns true we display the winning moves in Red
-        if (win) {//so here if we win we can do all our stuff in here
+        if (win === 'draw') {
+
+            displayWin(win);
+            document.querySelector('.new-game').addEventListener('click', newGame);
+            document.querySelector('.winner').innerHTML = 'DRAW';
+
+        } else if (win) {//so here if we win we can do all our stuff in here
             displayWin(win);
             //Now we need to update the score
             updateScore();
             //then we need to reset player counts and the player moves in our state
 
             //Reset for New Game
-            newGame();
+            document.querySelector('.new-game').addEventListener('click', newGame);
+            document.querySelector('.winner').innerHTML = `${state.player[current].name} Wins!`;
+            //newGame();
 
 
 
         } else { //else if we dont win we can change player and keep going. but we may want to put change player outside of htis because we will want the next player to make the first move next time.
-
+        changePlayer()
         }
         
         
@@ -209,7 +226,7 @@ document.querySelector('.grid-container').addEventListener('click', el => {
 
         //this section switches player. maybe make its own function outside.
        
-        changePlayer();
+       // changePlayer();
         
         console.log(current)  
 

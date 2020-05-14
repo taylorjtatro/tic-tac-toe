@@ -181,6 +181,7 @@ body {
   justify-content: center;
   width: 25%;
   border: 5px solid black;
+  transition: 1s;
 }
 
 .player-0 {
@@ -247,14 +248,43 @@ body {
   font-size: 40px;
 }
 
-
+.red {color: red;}
 
 
 /*************************TESTING SECTION */
 
-.red {color: red;}
+.announce {
+  position: absolute;
+  color: red;
+  background: rgba(0, 0, 0, .7);
+  border-radius: 20px;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: none;
+}
 
+.announce h1 {
+  padding: 20px;
+}
 
+.new-game {
+  margin: 20px;
+  border-radius: 30px;
+  
+}
+
+.new-game:hover {
+  transform: translateY(-2px);
+}
+
+.display {
+  display: flex;
+}
+
+/************ END TESTING SECTION */
 
 
 
