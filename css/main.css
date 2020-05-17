@@ -251,13 +251,12 @@ body {
 .red {color: red;}
 
 
-/*************************TESTING SECTION */
+/************************* ANNOUNCE WINNER SECTION */
 
 .announce {
   position: absolute;
   color: white;
-  border-radius: 20px;
-  font-size: 60px;
+  font-size: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -331,9 +330,9 @@ body {
 
 .s7 {
   animation-name: new-color;
-  animation-delay: 0.7s;
+  animation-delay: .7s;
   animation-iteration-count: infinite;
-  animation-duration: 2;
+  animation-duration: 2s;
 }
 
 
@@ -349,7 +348,7 @@ body {
   }
 }
 
-/************ END TESTING SECTION */
+/************ END ANNOUNCE WINNER SECTION */
 
 
 
@@ -454,6 +453,10 @@ body {
   width: 200px;
   height: 200px;
   font-size: 130px;
+}
+
+.announce {
+  font-size: 60px;
 }
 
 }
